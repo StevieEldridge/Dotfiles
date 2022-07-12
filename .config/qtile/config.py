@@ -1,5 +1,4 @@
-# Copyright (c) 2012-2014 Tycho Andersen
-# Copyright (c) 2012 Craig Barnes
+# Copyright (c) 2012-2014 Tycho Andersen # Copyright (c) 2012 Craig Barnes
 # Copyright (c) 2013 horsik
 # Copyright (c) 2013 Tao Sauvage
 #
@@ -42,7 +41,7 @@ colors = [
 		["#c678dd", "#c678dd"],
 		["#46d9ff", "#46d9ff"],
 		["#a9a1e1", "#a9a1e1"],
-		"elacff",  # Border Focus
+		"e1acff",  # Border Focus
 		"1d2330",  # Border Normal
 	]
 
@@ -178,6 +177,9 @@ def initWidgets():
 		),
 		widget.Systray(),
 		widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
+		widget.Wallpaper(
+			directory="~/Pictures/Wallpapers/"
+		),
 	]
 
 screens = [
@@ -193,8 +195,6 @@ screens = [
         top=bar.Bar(
 			initWidgets(),
             24,
-			wallpaper="~/Pictures/Wallpapers/sand.jpg",
-			wallpaper_mode="fill",
             # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
             # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
         ),
