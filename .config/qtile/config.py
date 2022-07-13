@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from libqtile import bar, layout, widget
+from libqtile import bar, layout, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
@@ -49,7 +49,7 @@ keys = [
 	# Commands to launch essential applications
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
 	Key([mod], "b", lazy.spawn(browser), desc="Launches preferred browser"),
-    Key([mod], "f", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
+    Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
 
     # A list of available commands that can be bound to keys can be found
     # at https://docs.qtile.org/en/latest/manual/config/lazy.html
@@ -77,7 +77,7 @@ keys = [
 	Key([mod], "i", lazy.layout.grow(), desc="Grows window"),
 	Key([mod], "o", lazy.layout.shrink(), desc="Shrinks window"),
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
-	Key([mod], "d", lazy.window.toggle_floating(), desc="Toggles floating mode"),
+	Key([mod], "w", lazy.window.toggle_floating(), desc="Toggles floating mode"),
 	Key([mod], "m", lazy.window.toggle_fullscreen(), desc="Toggles fullscreen mode"),
 
     # Toggle between split and unsplit sides of stack.
@@ -98,41 +98,34 @@ keys = [
     Key([mod, "control"], "q", lazy.shutdown(), desc="Exit Qtile"),
 
 	# Manages mulitple monitors
-	Key([mod], "e", lazy.to_screen(0), desc="Focuses to monitor 0"),
-	Key([mod], "w", lazy.to_screen(1), desc="Focuses to monitor 1"),
+	#Key([mod], "e", lazy.to_screen(0), desc="Focuses to monitor 0"),
+	#Key([mod], "w", lazy.to_screen(1), desc="Focuses to monitor 1"),
 	Key([mod, "shift"], "space", lazy.next_screen(), desc="Move focus to next monitor"),
+
+	# Takes a screenshot and saves it to clipboard
+	Key([mod], "Print", lazy.spawn("gnome-screenshot -i")),
 ]
 
-groups = [Group(i) for i in "123456789"]
+# Configures the groups for each screen
+screenGroups = ["asdf", "1234"]
+allGroups = ''.join(screenGroups)
+groups = [Group(i) for i in allGroups]
 
-for i in groups:
+# Seperates the groups for each screen while navigating to a group
+for j, names in enumerate(screenGroups):
     keys.extend(
-        [
-            # mod1 + letter of group = switch to group
-            Key(
-                [mod],
-                i.name,
-                lazy.group[i.name].toscreen(),
-                desc="Switch to group {}".format(i.name),
-            ),
-            # mod1 + shift + letter of group = switch to & move focused window to group
-			# Key(
-            #     [mod, "shift"],
-            #     i.name,
-            #     lazy.window.togroup(i.name, switch_groupjTrue),
-            #     desc="Switch to & move focused window to group {}".format(i.name),
-            # ),
-            # Or, use below if you prefer not to switch to that group.
-            # # mod1 + shift + letter of group = move focused window to group
-			Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
-				desc="move focused window to group {}".format(i.name)),
-        ]
-    )
+		Key([mod], i, lazy.to_screen(j), lazy.group[i].toscreen()) for i in names
+	)
+
+# Moves a window to a different group
+keys.extend(
+	Key([mod, "shift"], i, lazy.window.togroup(i)) for i in allGroups
+)
 
 # Config perameters that most layouts use
 layoutTheme = {
 		"border_width":  2,
-		"margin":        8,
+		"margin":        10,
 		"border_focus":  colors[10],
 		"border_normal": colors[11]
 	}
@@ -162,30 +155,35 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
-# Helper function that initializes widgets on the screens
-def initWidgets():
-	return [
-		widget.CurrentLayout(),
-		widget.GroupBox(),
-		widget.Prompt(),
-		widget.WindowName(),
-		widget.Chord(
-			chords_colors={
-				"launch": ("#ff0000", "#ffffff"),
-			},
-			name_transform=lambda name: name.upper(),
-		),
-		widget.Systray(),
-		widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
-		widget.Wallpaper(
-			directory="~/Pictures/Wallpapers/"
-		),
-	]
 
 screens = [
     Screen(
-        top=bar.Bar(
-			initWidgets(),
+		top=bar.Bar(
+			[
+				widget.CurrentLayout(),
+				widget.GroupBox(visible_groups=[char for char in screenGroups[0]]),
+				widget.Prompt(),
+				widget.WindowName(),
+				widget.Chord(
+					chords_colors={
+						"launch": ("#ff0000", "#ffffff"),
+					},
+					name_transform=lambda name: name.upper(),
+				),
+				widget.Systray(),
+				widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
+				widget.Volume(
+					limit_max_volume=True,
+					scroll_interval=0.01,
+					step=5,
+				),
+				widget.Wallpaper(
+					directory="~/Pictures/wallpapers/",
+					wallpaper="~/Pictures/wallpapers/sand.jpg",
+					wallpaper_mode="fill",
+					fontsize=0
+				),
+			],
             24,
             # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
             # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
@@ -193,7 +191,25 @@ screens = [
     ),
     Screen(
         top=bar.Bar(
-			initWidgets(),
+			[
+				widget.CurrentLayout(),
+				widget.GroupBox(visible_groups=[char for char in screenGroups[1]]),
+				widget.Prompt(),
+				widget.WindowName(),
+				widget.Chord(
+					chords_colors={
+						"launch": ("#ff0000", "#ffffff"),
+					},
+					name_transform=lambda name: name.upper(),
+				),
+				widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
+				widget.Wallpaper(
+					directory="~/Pictures/wallpapers/",
+					wallpaper="~/Pictures/wallpapers/sand.jpg",
+					wallpaper_mode="fill",
+					fontsize=0
+				),
+			],
             24,
             # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
             # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
@@ -225,9 +241,12 @@ floating_layout = layout.Floating(
         Match(title="pinentry"),  # GPG key password entry
     ]
 )
+
+# Global Seetings
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 reconfigure_screens = True
+cursor_warp = False
 
 # If things like steam games want to auto-minimize themselves when losing
 # focus, should we respect this or not?
