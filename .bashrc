@@ -35,6 +35,23 @@ alias ls='ls --color=auto'
 alias ll='ls -lav --ignore=..'   # show long listing of all except ".."
 alias l='ls -lav --ignore=.?*'   # show long listing but no hidden dotfiles except "."
 
+# This section contains alias commands for quicker access
+alias fishrc="vim ~/.config/fish/config.fish"
+alias bashrc="vim ~/.bashrc"
+alias qtilerc="vim ~/.config/qtile/config.py"
+alias vimrc="vim ~/.vimrc"
+alias mouserc="vim /etc/X11/xorg.conf.d/50-mouse.conf"
+alias monitorrc="vim /etc/X11/xorg.conf.d/10-monitor.conf"
+alias xresrc="vim ~/.Xresources"
+alias files="nautilus"
+
+alias slack="com.slack.Slack"
+alias brave="com.brave.Browser"
+alias discord="com.discordapp.Discord"
+
+alias gitconfig="/usr/bin/git --git-dir=$HOME/.Dotfiles --work-tree=$HOME"
+
+
 [[ "$(whoami)" = "root" ]] && return
 
 [[ -z "$FUNCNEST" ]] && export FUNCNEST=100          # limits recursive functions, see 'man bash'

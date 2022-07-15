@@ -20,6 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import os, re, socket, subprocess
 from libqtile import bar, layout, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
@@ -30,26 +31,47 @@ terminal = "alacritty"
 browser = "com.brave.Browser"
 
 # Colors that theme QTile
-colors = [
-		["#282c34", "#282c34"],  # Background
-		["#1c1f24", "#1c1f24"],
-		["#dfdfdf", "#dfdfdf"],  # Foreground
-		["#ff6c6b", "#ff6c6b"],
-		["#98be65", "#98be65"],
-		["#da8548", "#da8548"],
-		["#51afef", "#51afef"],
-		["#c678dd", "#c678dd"],
-		["#46d9ff", "#46d9ff"],
-		["#a9a1e1", "#a9a1e1"],
-		"e1acff",  # Border Focus
-		"1d2330",  # Border Normal
-	]
+color = dict(
+		background = ["#292d3e", "#292d3e"],
+		foreground = ["#bfc7df", "#bfc7df"],
+		black      = ["#292d3e", "#292d3e"],
+		red        = ["#f07178", "#f07178"],
+		green      = ["#62de84", "#62de84"],
+		yellow     = ["#ffcb6b", "#ffcb6b"],
+		blue       = ["#75a1ff", "#75a1ff"],
+		magenta    = ["#f580ff", "#f580ff"],
+		cyan       = ["#60baec", "#60baec"],
+		white      = ["#abb2bf", "#abb2bf"],
+		bdrFocus   = "f580ff",
+		bdrNormal  = "5c607f"
+	)
+
+barHeight = 26
+
+def scale(initValue):
+	pixelScale = 1.0
+	return round(initValue * pixelScale)
 
 keys = [
 	# Commands to launch essential applications
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
 	Key([mod], "b", lazy.spawn(browser), desc="Launches preferred browser"),
-    Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
+	Key([mod, "shift"], "r", lazy.spawncmd(), desc="Uses the qtile spawn"),
+    Key([mod], "r",
+		lazy.spawn(
+			"dmenu_run -h " + str(barHeight) +
+			" -fn 'Ubuntu Mono-12'" +
+			" -nb '" + color["background"][0] + "'" +  # Dmenu bar background colro
+			" -nf '" + color["white"][0] + "'" +       # Dmenu bar text color
+			" -shb '" + color["magenta"][0] + "'" +    # Matched text background color
+			" -shf '" + color["black"][0] + "'" +      # Matched text color
+			" -sb '" + color["foreground"][0] + "'" +  # Selected background color
+			" -sf '" + color["black"][0] + "'" +       # Selected text color
+			" -nhb '" + color["foreground"][0] + "'" + # Partial matched text background color
+			" -nhf '" + color["black"][0] + "'"        # Partial matched text color
+		),
+		desc="Spawn a command using a prompt widget"
+	),
 
     # A list of available commands that can be bound to keys can be found
     # at https://docs.qtile.org/en/latest/manual/config/lazy.html
@@ -84,12 +106,7 @@ keys = [
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
     # multiple stack panes
-    Key(
-        [mod, "shift"],
-        "Return",
-        lazy.layout.toggle_split(),
-        desc="Toggle between split and unsplit sides of stack",
-    ),
+    Key([mod, "shift"], "Return", lazy.layout.toggle_split()),
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
@@ -124,10 +141,10 @@ keys.extend(
 
 # Config perameters that most layouts use
 layoutTheme = {
-		"border_width":  2,
-		"margin":        10,
-		"border_focus":  colors[10],
-		"border_normal": colors[11]
+		"border_width":  scale(3),
+		"margin":        scale(12),
+		"border_focus":  color["bdrFocus"],
+		"border_normal": color["bdrNormal"]
 	}
 
 layouts = [
@@ -146,71 +163,153 @@ layouts = [
 ]
 
 widget_defaults = dict(
-	# font="sans",
-	# fontsize=12,
-	# padding=3,
 	font     = "Ubuntu Bold",
-	fontsize = 12,
-	padding  = 3
+	fontsize = 14,
+	padding = scale(6),
+	background = color["background"],
+	foreground = color["foreground"],
 )
 extension_defaults = widget_defaults.copy()
 
+barMarginX = 10
+sepPadding = 10
+
+
+def initWidgets(screenNum):
+	baseWidgets = [
+		widget.Sep(
+			linewidth = scale(0),
+			padding = scale(barMarginX),
+		),
+		widget.GroupBox(
+			visible_groups=[char for char in screenGroups[screenNum]],
+			borderwidth = scale(4),
+			active = color["green"],
+			inactive = color["foreground"],
+			highlight_color = color["white"],
+			highlight_method = "line",
+			this_current_screen_border = color["green"],
+			this_screen_border = color["green"],
+			other_current_screen_border = color["green"],
+			other_screen_border = color["green"],
+			rounded = False,
+			disable_drag = True,
+
+		),
+		widget.Sep(
+			linewidth = scale(2),
+			padding = scale(sepPadding),
+			size_percent = 70,
+		),
+		widget.CurrentLayout(
+			foreground = color["yellow"],
+		),
+		widget.Sep(
+			linewidth = scale(2),
+			padding = scale(sepPadding),
+			size_percent = 70,
+		),
+		widget.Prompt(),
+		widget.WindowName(
+			foreground = color["blue"],
+		),
+		widget.Chord(
+			chords_colors={
+				"launch": ("#ff0000", "#ffffff"),
+			},
+			name_transform=lambda name: name.upper(),
+		),
+		widget.Systray(
+			icon_size = 20,
+		),
+		widget.Sep(
+			linewidth = scale(0),
+			padding = scale(sepPadding),
+		),
+		widget.CheckUpdates(
+			display_format = "upd: {updates}",
+			distro = "Arch",
+			no_update_string = "0",
+			update_interval = 300,
+			background = color["green"],
+			colour_have_updates = color["black"],
+			colour_no_updates = color["black"],
+		),
+		widget.Sep(
+			linewidth = scale(0),
+			padding = scale(sepPadding),
+		),
+		widget.CPU(
+			format = "cpu: {load_percent}%",
+			update_interval = 1.0,
+			background = color["red"],
+			foreground = color["black"],
+		),
+		widget.Sep(
+			linewidth = scale(0),
+			padding = scale(sepPadding),
+		),
+		widget.Memory(
+			measure_mem = "G",
+			update_interval = 1.0,
+			format = "ram: {MemUsed: .1f} /{MemTotal: .1f}",
+			background = color["yellow"],
+			foreground = color["black"],
+		),
+		widget.Sep(
+			linewidth = scale(0),
+			padding = scale(sepPadding),
+		),
+		widget.Clock(
+			format = "%m/%d  %I:%M %p",
+			background = color["blue"],
+			foreground = color["black"],
+		),
+		widget.Sep(
+			linewidth = scale(0),
+			padding = scale(sepPadding),
+		),
+		widget.Volume(
+			limit_max_volume=True,
+			update_interval = 0.1,
+			fmt = "vol: {}",
+			step = 5,
+			background = color["magenta"],
+			foreground = color["black"],
+		),
+		widget.Wallpaper(
+			directory="~/Pictures/wallpapers/",
+			wallpaper="~/Pictures/wallpapers/sand.jpg",
+			wallpaper_mode="fill",
+			fontsize=0,
+			padding = scale(0),
+		),
+		widget.Sep(
+			linewidth = scale(0),
+			padding = scale(barMarginX),
+		),
+	]
+
+	if not screenNum == 0:
+		del baseWidgets[8:9]  # Removes SysTray on secondary monitors
+
+	return baseWidgets
 
 screens = [
     Screen(
 		top=bar.Bar(
-			[
-				widget.CurrentLayout(),
-				widget.GroupBox(visible_groups=[char for char in screenGroups[0]]),
-				widget.Prompt(),
-				widget.WindowName(),
-				widget.Chord(
-					chords_colors={
-						"launch": ("#ff0000", "#ffffff"),
-					},
-					name_transform=lambda name: name.upper(),
-				),
-				widget.Systray(),
-				widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
-				widget.Volume(
-					limit_max_volume=True,
-					scroll_interval=0.01,
-					step=5,
-				),
-				widget.Wallpaper(
-					directory="~/Pictures/wallpapers/",
-					wallpaper="~/Pictures/wallpapers/sand.jpg",
-					wallpaper_mode="fill",
-					fontsize=0
-				),
-			],
-            24,
+			widgets = initWidgets(0),
+            size = scale(barHeight),
+			opacity = 1.0,
             # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
             # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
         ),
     ),
     Screen(
         top=bar.Bar(
-			[
-				widget.CurrentLayout(),
-				widget.GroupBox(visible_groups=[char for char in screenGroups[1]]),
-				widget.Prompt(),
-				widget.WindowName(),
-				widget.Chord(
-					chords_colors={
-						"launch": ("#ff0000", "#ffffff"),
-					},
-					name_transform=lambda name: name.upper(),
-				),
-				widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
-				widget.Wallpaper(
-					directory="~/Pictures/wallpapers/",
-					wallpaper="~/Pictures/wallpapers/sand.jpg",
-					wallpaper_mode="fill",
-					fontsize=0
-				),
-			],
-            24,
+			widgets = initWidgets(1),
+            size = scale(barHeight),
+			opacity = 1.0,
             # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
             # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
         ),
@@ -228,7 +327,6 @@ dgroups_key_binder = None
 dgroups_app_rules = []  # type: list
 follow_mouse_focus = True
 bring_front_click = False
-cursor_warp = False
 floating_layout = layout.Floating(
     float_rules=[
         # Run the utility of `xprop` to see the wm class and name of an X client.
@@ -254,6 +352,11 @@ auto_minimize = True
 
 # When using the Wayland backend, this can be used to configure input devices.
 wl_input_rules = None
+
+@hook.subscribe.startup_once
+def startOnce():
+	home = os.path.expanduser("~")
+	subprocess.call([home + "/.config/qtile/autostart.sh"])
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the

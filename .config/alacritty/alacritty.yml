@@ -1,0 +1,40 @@
+env:
+  TERM: xterm-256color
+
+window:
+  opacity: 0.9
+  padding:
+    x: 6
+    y: 6
+
+scrolling:
+  history: 5000
+
+colors:
+  # Default colors
+  primary:
+    background: '0x292d3d'
+    foreground: '0xbfc7df'
+
+  # Normal colors
+  normal:
+    black:   '0x292d3e'
+    red:     '0xf07178'
+    green:   '0x62de84'
+    yellow:  '0xffcb6b'
+    blue:    '0x75a1ff'
+    magenta: '0xf580ff'
+    cyan:    '0x60baec'
+    white:   '0xabb2bf'
+
+  # Bright colors
+  bright:
+    black:   '0x959dcb'
+    red:     '0xf07178'
+    green:   '0xc3e88d'
+    yellow:  '0xff5572'
+    blue:    '0x82aaff'
+    magenta: '0xffcb6b'
+    cyan:    '0x676e95'
+    white:   '0xd0d0e5'
+
