@@ -29,3 +29,5 @@ alias gitconfig="/usr/bin/git --git-dir=$HOME/.Dotfiles --work-tree=$HOME"
 function mousespeed
 	xinput set-prop 11 180 $argv 0 0 0 $argv 0 0 0 1
 end
+
+fish_vi_key_bindings
