@@ -8,16 +8,18 @@ function fish_greeting
 	# Add any greeting stuff here
 end
 
+
 # This section contains alias commands for quicker access
-alias fishrc="vim ~/.config/fish/config.fish"
-alias bashrc="vim ~/.bashrc"
-alias qtilerc="vim ~/.config/qtile/config.py"
-alias vimrc="vim ~/.vimrc"
-alias mouserc="vim /etc/X11/xorg.conf.d/50-mouse.conf"
-alias monitorrc="vim /etc/X11/xorg.conf.d/10-monitor.conf"
-alias xresrc="vim ~/.Xresources"
-alias alrc="vim ~/.config/alacritty/alacritty.yml"
+alias fishrc="nvim ~/.config/fish/config.fish"
+alias bashrc="nvim ~/.bashrc"
+alias qtilerc="nvim ~/.config/qtile/config.py"
+alias vimrc="nvim ~/.vimrc"
+alias mouserc="nvim /etc/X11/xorg.conf.d/50-mouse.conf"
+alias monitorrc="nvim /etc/X11/xorg.conf.d/10-monitor.conf"
+alias xresrc="nvim ~/.Xresources"
+alias alrc="nvim ~/.config/alacritty/alacritty.yml"
 alias files="nautilus"
+alias vim="nvim"
 
 alias slack="com.slack.Slack"
 alias brave="com.brave.Browser"
