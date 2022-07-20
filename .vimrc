@@ -54,6 +54,7 @@ set autoindent
 set smartindent
 set fileformat=unix
 set encoding=utf-8
+" set termguicolors       " Has Vim use GUI Hex Colors
 set t_Co=256
 
 " Removes '|' that act as seperators on splits
@@ -75,6 +76,11 @@ nmap <Tab> >>4l
 nmap <S-Tab> <<4h
 "imap <Tab> <Esc>>>4la
 "imap <S-Tab> <Esc><<4ha
+
+" Makes navigation easier
+nmap J <C-d>
+nmap K <C-u>
+
 
 " Uses Ctrl+hjkl to move between split/vsplit windows
 tnoremap <C-h> <C-\><C-n><C-w>h
