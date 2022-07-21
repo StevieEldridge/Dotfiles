@@ -1,0 +1,7 @@
+require('plugns/lsp')
+require('plugns/telescope')
+require('plugns/airline')
+require('plugns/gitsigns')
+require('plugns/treesitter')
+require('plugns/nvim-tree')
+require('plugns/vimwiki')
