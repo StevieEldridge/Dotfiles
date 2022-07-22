@@ -18,9 +18,9 @@ Plug 'nvim-lua/plenary.nvim'            " Dependency for Telescope
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', {'do': 'make'}
 
-" NvimTree
-Plug 'kyazdani42/nvim-web-devicons'     " Optional icons for nvim-tree
-Plug 'kyazdani42/nvim-tree.lua'         " Project File Explorer
+" NerdTree
+Plug 'ryanoasis/vim-devicons'	        " Icons for Nerdtree
+Plug 'scrooloose/nerdtree'		        " Nerdtree
 
 " Visual Plugins
 Plug 'ap/vim-css-color'			    " Color previews for CSS colors
@@ -32,8 +32,8 @@ Plug 'gruvbox-community/gruvbox'    " Gruvbox Colorscheme
 " Unused Plugins
 "Plug 'vifm/vifm.vim'                   " File Manager
 "Plug 'itchyny/lightline.vim'           " Lightline Statusbar
-"Plug 'scrooloose/nerdtree'		        " Nerdtree
-"Plug 'ryanoasis/vim-devicons'	        " Icons for Nerdtree
+"Plug 'kyazdani42/nvim-web-devicons'     " Optional icons for nvim-tree
+"Plug 'kyazdani42/nvim-tree.lua'         " Project File Explorer
 
 call plug#end()
 
@@ -49,8 +49,8 @@ set termguicolors
 colorscheme gruvbox
 let g:airline_theme='gruvbox'
 
-" Uses the terminal background over theme background (Useful for transparency)
-"hi Normal guibg=NONE ctermbg=NONE
+" Uses terminal background over Vim theme background (Useful for transparency)
+hi Normal guibg=NONE ctermbg=NONE
 
 
 "--------------------------------------------------
@@ -71,8 +71,22 @@ set signcolumn=yes:1
 
 
 "--------------------------------------------------
-" NeoVim Only Keybindings
+" NerdTree Settings
 "--------------------------------------------------
 
-" NVim Tree Toggle
-nnoremap <silent> T :NvimTreeToggle<CR>
+" Quickly opens NerdTree, mirrors it, moves it to bottom, and resizes it
+nnoremap <silent> T :NERDTreeVCS \| :NERDTreeMirror<CR> \| <C-w>J \| :resize 20<CR>
+
+" Remaps keys that interfier with my window navigation keymaps
+let g:NERDTreeMapJumpNextSibling='\j'
+let g:NERDTreeMapJumpPrevSibling='\k'
+
+" Makes file icons larger
+let g:NERDTreeDirArrowExpandable = '►'
+let g:NERDTreeDirArrowCollapsible = '▼'
+
+" Other settings
+"let NERDTreeShowLineNumbers=1
+let NERDTreeShowHidden=1    " Shows hidden files by default
+let NERDTreeMinimalUI = 1   " No clue what this does :)
+let g:NERDTreeWinSize=24    " Default horizontal width

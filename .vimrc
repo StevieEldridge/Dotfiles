@@ -77,10 +77,13 @@ nmap <S-Tab> <<2h
 "imap <Tab> <Esc>>>2la
 "imap <S-Tab> <Esc><<2ha
 
-" Makes navigation easier
+" Makes line navigation easier
 nmap J <C-d>
 nmap K <C-u>
 
+" Quickly navigates through tabs
+nmap H gT
+nmap L gt
 
 " Uses Ctrl+hjkl to move between split/vsplit windows
 tmap <C-h> <C-\><C-n><C-w>h

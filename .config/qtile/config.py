@@ -31,19 +31,34 @@ terminal = "alacritty"
 browser = "com.brave.Browser"
 
 # Colors that theme QTile
-color = dict(
-		background = ["#292d3e", "#292d3e"],
-		foreground = ["#bfc7df", "#bfc7df"],
-		black      = ["#292d3e", "#292d3e"],
-		red        = ["#f07178", "#f07178"],
-		green      = ["#62de84", "#62de84"],
-		yellow     = ["#ffcb6b", "#ffcb6b"],
-		blue       = ["#75a1ff", "#75a1ff"],
-		magenta    = ["#f580ff", "#f580ff"],
-		cyan       = ["#60baec", "#60baec"],
-		white      = ["#abb2bf", "#abb2bf"],
-		bdrFocus   = "f580ff",
-		bdrNormal  = "5c607f"
+color = dict (
+        # Gogh
+        #background = ["#292d3e", "#292d3e"],
+		#foreground = ["#bfc7df", "#bfc7df"],
+		#black      = ["#292d3e", "#292d3e"],
+		#red        = ["#f07178", "#f07178"],
+		#green      = ["#62de84", "#62de84"],
+		#yellow     = ["#ffcb6b", "#ffcb6b"],
+		#blue       = ["#75a1ff", "#75a1ff"],
+		#magenta    = ["#f580ff", "#f580ff"],
+		#cyan       = ["#60baec", "#60baec"],
+		#white      = ["#abb2bf", "#abb2bf"],
+		#bdrFocus   = "f580ff",
+		#bdrNormal  = "5c607f"
+
+        # Gruvbox
+        background = ["#282828", "#282828"],
+		foreground = ["#ebdbb2", "#ebdbb2"],
+		black      = ["#282828", "#282828"],
+		red        = ["#cc241d", "#cc241d"],
+		green      = ["#98971a", "#98971a"],
+		yellow     = ["#d79921", "#d79921"],
+		blue       = ["#458588", "#458588"],
+		magenta    = ["#b16286", "#b16286"],
+		cyan       = ["#689d6a", "#689d6a"],
+		white      = ["#a89984", "#a89984"],
+		bdrFocus   = "d79921",
+		bdrNormal  = "928374"
 	)
 
 barHeight = 26
@@ -278,8 +293,7 @@ def initWidgets(screenNum):
 			foreground = color["black"],
 		),
 		widget.Wallpaper(
-			directory="~/Pictures/wallpapers/",
-			wallpaper="~/Pictures/wallpapers/sand.jpg",
+			directory="~/Pictures/wallpapers/aw0",
 			wallpaper_mode="fill",
 			fontsize=0,
 			padding = scale(0),
@@ -325,7 +339,7 @@ mouse = [
 
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: list
-follow_mouse_focus = True
+follow_mouse_focus = False
 bring_front_click = False
 floating_layout = layout.Floating(
     float_rules=[
