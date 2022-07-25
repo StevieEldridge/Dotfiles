@@ -30,7 +30,10 @@ mod = "mod1"
 terminal = "alacritty"
 browser = "com.brave.Browser"
 
-# Colors that theme QTile
+# -------------------------------------------------
+# Qtile Color Theme
+# -------------------------------------------------
+
 color = dict (
         # Gogh
         #background = ["#292d3e", "#292d3e"],
@@ -61,12 +64,22 @@ color = dict (
 		bdrNormal  = "928374"
 	)
 
+
+# -------------------------------------------------
+# Global Variables
+# -------------------------------------------------
+
+# Modifies the bar height
 barHeight = 26
 
+# Pixel Scale is a global multiplier. Useful for high resolution displays
 def scale(initValue):
 	pixelScale = 1.0
 	return round(initValue * pixelScale)
 
+# -------------------------------------------------
+# Keybindings
+# -------------------------------------------------
 keys = [
 	# Commands to launch essential applications
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
@@ -74,6 +87,7 @@ keys = [
 	Key([mod, "shift"], "r", lazy.spawncmd(), desc="Uses the qtile spawn"),
     Key([mod], "r",
 		lazy.spawn(
+            # Specific settings for DMenu such as colors
 			"dmenu_run -h " + str(barHeight) +
 			" -fn 'Ubuntu Mono-12'" +
 			" -nb '" + color["background"][0] + "'" +  # Dmenu bar background colro
@@ -138,7 +152,17 @@ keys = [
 	Key([mod], "Print", lazy.spawn("gnome-screenshot -i")),
 ]
 
-# Configures the groups for each screen
+
+# -------------------------------------------------
+# Custom Workspace Handling For Each Screen
+# -------------------------------------------------
+
+# By default Qtile shares its workspaces(aka groups) between all screens.
+# I have changed how workspaces and screens are handled where each screen
+# now has seperate workspaces
+
+# Configures the workspaces for each screen where each string in the array
+# represents a different set of workspaces for each screen
 screenGroups = ["asdf", "1234"]
 allGroups = ''.join(screenGroups)
 groups = [Group(i) for i in allGroups]
@@ -149,10 +173,15 @@ for j, names in enumerate(screenGroups):
 		Key([mod], i, lazy.to_screen(j), lazy.group[i].toscreen()) for i in names
 	)
 
-# Moves a window to a different group
+# Moves a window to a different workspace
 keys.extend(
 	Key([mod, "shift"], i, lazy.window.togroup(i)) for i in allGroups
 )
+
+
+# -------------------------------------------------
+# Layout Settings
+# -------------------------------------------------
 
 # Config perameters that most layouts use
 layoutTheme = {
@@ -177,6 +206,11 @@ layouts = [
 	# layout.Zoomy(),
 ]
 
+
+# -------------------------------------------------
+# Widget Settings
+# -------------------------------------------------
+
 widget_defaults = dict(
 	font     = "Ubuntu Bold",
 	fontsize = 14,
@@ -186,10 +220,11 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
-barMarginX = 10
-sepPadding = 10
+barMarginX = 10  # Margin on the left and right side of the bar
+sepPadding = 10  # Spacing between each widget
 
-
+# Intitializes an array of widgets for one screen bar
+# @Input - A screen number for a given screen
 def initWidgets(screenNum):
 	baseWidgets = [
 		widget.Sep(
@@ -209,7 +244,6 @@ def initWidgets(screenNum):
 			other_screen_border = color["green"],
 			rounded = False,
 			disable_drag = True,
-
 		),
 		widget.Sep(
 			linewidth = scale(2),
@@ -309,6 +343,11 @@ def initWidgets(screenNum):
 
 	return baseWidgets
 
+
+# -------------------------------------------------
+# Screen Initilization
+# -------------------------------------------------
+
 screens = [
     Screen(
 		top=bar.Bar(
@@ -330,12 +369,21 @@ screens = [
     ),
 ]
 
+# -------------------------------------------------
+# Mouse Bindings
+# -------------------------------------------------
+
 # Drag floating layouts.
 mouse = [
     Drag([mod], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
     Drag([mod], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
     Click([mod], "Button2", lazy.window.bring_to_front()),
 ]
+
+
+# -------------------------------------------------
+# Floating Window Settings
+# -------------------------------------------------
 
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: list
@@ -354,7 +402,11 @@ floating_layout = layout.Floating(
     ]
 )
 
-# Global Seetings
+
+# -------------------------------------------------
+# Global Settings
+# -------------------------------------------------
+
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 reconfigure_screens = True
@@ -367,10 +419,20 @@ auto_minimize = True
 # When using the Wayland backend, this can be used to configure input devices.
 wl_input_rules = None
 
+
+# -------------------------------------------------
+# Hooks
+# -------------------------------------------------
+
 @hook.subscribe.startup_once
 def startOnce():
 	home = os.path.expanduser("~")
 	subprocess.call([home + "/.config/qtile/autostart.sh"])
+
+
+# -------------------------------------------------
+# Other
+# -------------------------------------------------
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the
