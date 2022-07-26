@@ -1,4 +1,4 @@
-" Imports the .vimrc settings
+
 source ~/.vimrc
 
 "--------------------------------------------------
@@ -11,7 +11,15 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Improves syntax hi
 Plug 'vim-airline/vim-airline'          " Airline Statusbar
 Plug 'tpope/vim-fugitive'               " A Powerful Git Integration Tool
 Plug 'lewis6991/gitsigns.nvim'          " Adds git decorations
-Plug 'vimwiki/vimwiki'			        " Vim Wiki
+Plug 'vimwiki/vimwiki'			            " Vim Wiki
+Plug 'adelarsq/neofsharp.vim'           " Syntax Support for FSharp
+
+" Autocompletion
+Plug 'hrsh7th/nvim-cmp'                 " Autocompletion plugin
+Plug 'hrsh7th/cmp-nvim-lsp'             " LSP source form nvim-cmp
+Plug 'L3MON4D3/LuaSnip'                 " Snippets Plugin
+Plug 'saadparwaiz1/cmp_luasnip'         " Snippets source for nvim-cmp
+Plug 'onsails/lspkind-nvim'             " Adds icons besides the names
 
 " Telescope
 Plug 'nvim-lua/plenary.nvim'            " Dependency for Telescope
@@ -41,6 +49,7 @@ call plug#end()
 lua require('plugns')
 
 
+
 "--------------------------------------------------
 " Colorscheme Settings
 "--------------------------------------------------
@@ -62,9 +71,20 @@ let g:airline_powerline_fonts = 1
 set laststatus=2
 set noshowmode          " Disables -- INSERT -- notice
 
-" Vim Wiki
+
+"--------------------------------------------------
+" Vim Wiki Settings
+"--------------------------------------------------
+
+" Has VimWiki use Markup
 let g:vimwiki_list = [{'path': '~/.config/nvim/vimwiki/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
+
+filetype plugin on  " The Github page reccomends this setting is enabled
+
+" Remaps increasing/decreasing task completion
+nmap <Leader>[ glp
+nmap <leader>] gln
 
 " Show diagnostic signs in number column
 set signcolumn=yes:1
