@@ -1,4 +1,4 @@
-
+" Imports the .vimrc settings
 source ~/.vimrc
 
 "--------------------------------------------------
@@ -13,6 +13,7 @@ Plug 'tpope/vim-fugitive'               " A Powerful Git Integration Tool
 Plug 'lewis6991/gitsigns.nvim'          " Adds git decorations
 Plug 'vimwiki/vimwiki'			            " Vim Wiki
 Plug 'adelarsq/neofsharp.vim'           " Syntax Support for FSharp
+Plug 'williamboman/mason.nvim'          " Manages external LSP servers
 
 " Autocompletion
 Plug 'hrsh7th/nvim-cmp'                 " Autocompletion plugin
@@ -27,21 +28,21 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', {'do': 'make'}
 
 " NerdTree
-Plug 'ryanoasis/vim-devicons'	        " Icons for Nerdtree
-Plug 'scrooloose/nerdtree'		        " Nerdtree
+Plug 'ryanoasis/vim-devicons'	          " Icons for Nerdtree
+Plug 'scrooloose/nerdtree'		          " Nerdtree
 
 " Visual Plugins
-Plug 'ap/vim-css-color'			    " Color previews for CSS colors
+Plug 'ap/vim-css-color'		      	      " Color previews for CSS colors
 
 " Colortheme plugins
-Plug 'joshdick/onedark.vim'         " One Colorscheme
-Plug 'gruvbox-community/gruvbox'    " Gruvbox Colorscheme
+Plug 'joshdick/onedark.vim'             " One Colorscheme
+Plug 'gruvbox-community/gruvbox'        " Gruvbox Colorscheme
 
 " Unused Plugins
 "Plug 'vifm/vifm.vim'                   " File Manager
 "Plug 'itchyny/lightline.vim'           " Lightline Statusbar
-"Plug 'kyazdani42/nvim-web-devicons'     " Optional icons for nvim-tree
-"Plug 'kyazdani42/nvim-tree.lua'         " Project File Explorer
+"Plug 'kyazdani42/nvim-web-devicons'    " Optional icons for nvim-tree
+"Plug 'kyazdani42/nvim-tree.lua'        " Project File Explorer
 
 call plug#end()
 
