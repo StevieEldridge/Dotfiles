@@ -70,9 +70,16 @@ hi Normal guibg=NONE ctermbg=NONE
 
 " AirLine
 let g:airline_powerline_fonts = 1
-let g:airline_detect_spell = 0  " Hides spell
+let g:airline_detect_spell = 0                " Hides spell
+let g:airline#extensions#tabline#enabled = 1  " Enables airline for tab bar
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+
+" Changes from powerline to straight tabs
+"let g:airline#extensions#tabline#left_sep = ' '
+"let g:airline#extensions#tabline#left_alt_sep = '|'
+
 set laststatus=2
-set noshowmode          " Disables -- INSERT -- notice
+set noshowmode                                " Disables -- INSERT -- notice
 
 
 "--------------------------------------------------
@@ -83,7 +90,7 @@ set noshowmode          " Disables -- INSERT -- notice
 let g:vimwiki_list = [{'path': '~/.config/nvim/vimwiki/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
 
-filetype plugin on  " The Github page reccomends this setting is enabled
+filetype plugin on  " The Github page recommends this setting is enabled
 
 " Remaps increasing/decreasing task completion
 nmap <Leader>[ glp
@@ -100,7 +107,7 @@ set signcolumn=yes:1
 " Quickly opens NerdTree, mirrors it, moves it to bottom, and resizes it
 nnoremap <silent> T :NERDTreeVCS \| :NERDTreeMirror<CR> \| <C-w>J \| :resize 20<CR>
 
-" Remaps keys that interfier with my window navigation keymaps
+" Remaps keys that interfere with my window navigation keymaps
 let g:NERDTreeMapJumpNextSibling='\j'
 let g:NERDTreeMapJumpPrevSibling='\k'
 

@@ -55,7 +55,7 @@ set smartcase
 " set termguicolors
 set t_Co=256
 
-" Compatability settings
+" Compatibility settings
 set fileformat=unix
 set encoding=utf-8
 
@@ -84,11 +84,16 @@ nmap <S-Tab> <<2h
 nmap J <C-d>
 nmap K <C-u>
 
-" Quickly navigates through tabs
-nmap H gT
-nmap L gt
+" Quickly navigates through buffers
+nmap <silent> H :bprevious<CR>
+nmap <silent> L :bnext<CR>
 
-" Uses Ctrl+hjkl to move between split/vsplit windows
+" Quickly navigates through tabs
+nmap <C-h> gT
+nmap <C-l> gt
+
+
+" Uses Ctrl+hjkl to move between horz/vert windows
 tmap <C-h> <C-\><C-n><C-w>h
 tmap <C-j> <C-\><C-n><C-w>j
 tmap <C-k> <C-\><C-n><C-w>k
