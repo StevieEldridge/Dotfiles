@@ -33,6 +33,9 @@ set hlsearch
 set splitbelow
 set splitright
 
+" Enables spellcheck
+set spell
+
 " navigate buffers without losing unsaved work
 set hidden
 

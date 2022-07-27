@@ -6,49 +6,50 @@ source ~/.vimrc
 "--------------------------------------------------
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'neovim/nvim-lspconfig'            " Official Language Support Plugin
+Plug 'neovim/nvim-lspconfig'                " Official Language Support Plugin
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Improves syntax highlighting
-Plug 'vim-airline/vim-airline'          " Airline Statusbar
-Plug 'tpope/vim-fugitive'               " A Powerful Git Integration Tool
-Plug 'lewis6991/gitsigns.nvim'          " Adds git decorations
-Plug 'vimwiki/vimwiki'			            " Vim Wiki
-Plug 'adelarsq/neofsharp.vim'           " Syntax Support for FSharp
-Plug 'williamboman/mason.nvim'          " Manages external LSP servers
+Plug 'lewis6991/spellsitter.nvim'           " Spell checker that uses TreeSitter
+Plug 'lukas-reineke/indent-blankline.nvim'  " Shows tabs
+Plug 'vim-airline/vim-airline'              " Airline Statusbar
+Plug 'tpope/vim-fugitive'                   " A Powerful Git Integration Tool
+Plug 'lewis6991/gitsigns.nvim'              " Adds git decorations
+Plug 'vimwiki/vimwiki'			                " Vim Wiki
+Plug 'adelarsq/neofsharp.vim'               " Syntax Support for FSharp
+Plug 'williamboman/mason.nvim'              " Manages external LSP servers
 
 " Autocompletion
-Plug 'hrsh7th/nvim-cmp'                 " Autocompletion plugin
-Plug 'hrsh7th/cmp-nvim-lsp'             " LSP source form nvim-cmp
-Plug 'L3MON4D3/LuaSnip'                 " Snippets Plugin
-Plug 'saadparwaiz1/cmp_luasnip'         " Snippets source for nvim-cmp
-Plug 'onsails/lspkind-nvim'             " Adds icons besides the names
+Plug 'hrsh7th/nvim-cmp'                     " Autocompletion plugin
+Plug 'hrsh7th/cmp-nvim-lsp'                 " LSP source form nvim-cmp
+Plug 'L3MON4D3/LuaSnip'                     " Snippets Plugin
+Plug 'saadparwaiz1/cmp_luasnip'             " Snippets source for nvim-cmp
+Plug 'onsails/lspkind-nvim'                 " Adds icons besides the names
 
 " Telescope
-Plug 'nvim-lua/plenary.nvim'            " Dependency for Telescope
+Plug 'nvim-lua/plenary.nvim'                " Dependency for Telescope
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', {'do': 'make'}
 
 " NerdTree
-Plug 'ryanoasis/vim-devicons'	          " Icons for Nerdtree
-Plug 'scrooloose/nerdtree'		          " Nerdtree
+Plug 'ryanoasis/vim-devicons'	              " Icons for Nerdtree
+Plug 'scrooloose/nerdtree'		              " Nerdtree
 
 " Visual Plugins
-Plug 'ap/vim-css-color'		      	      " Color previews for CSS colors
+Plug 'ap/vim-css-color'		      	          " Color previews for CSS colors
 
 " Colortheme plugins
-Plug 'joshdick/onedark.vim'             " One Colorscheme
-Plug 'gruvbox-community/gruvbox'        " Gruvbox Colorscheme
+Plug 'joshdick/onedark.vim'                 " One Colorscheme
+Plug 'gruvbox-community/gruvbox'            " Gruvbox Colorscheme
 
 " Unused Plugins
-"Plug 'vifm/vifm.vim'                   " File Manager
-"Plug 'itchyny/lightline.vim'           " Lightline Statusbar
-"Plug 'kyazdani42/nvim-web-devicons'    " Optional icons for nvim-tree
-"Plug 'kyazdani42/nvim-tree.lua'        " Project File Explorer
+"Plug 'vifm/vifm.vim'                       " File Manager
+"Plug 'itchyny/lightline.vim'               " Lightline Statusbar
+"Plug 'kyazdani42/nvim-web-devicons'        " Optional icons for nvim-tree
+"Plug 'kyazdani42/nvim-tree.lua'            " Project File Explorer
 
 call plug#end()
 
 " Loads init.lua to load all plugin settings
 lua require('plugns')
-
 
 
 "--------------------------------------------------
@@ -69,6 +70,7 @@ hi Normal guibg=NONE ctermbg=NONE
 
 " AirLine
 let g:airline_powerline_fonts = 1
+let g:airline_detect_spell = 0  " Hides spell
 set laststatus=2
 set noshowmode          " Disables -- INSERT -- notice
 
