@@ -27,7 +27,7 @@ from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
 mod = "mod1"
-terminal = "alacritty"
+terminal = "kitty"
 browser = "com.brave.Browser"
 
 # -------------------------------------------------
@@ -89,8 +89,8 @@ keys = [
 		lazy.spawn(
             # Specific settings for DMenu such as colors
 			"dmenu_run -h " + str(barHeight) +
-			" -fn 'Ubuntu Mono-12'" +
-			" -nb '" + color["background"][0] + "'" +  # Dmenu bar background colro
+			" -fn 'FiraCode Nerd Font-12'" +
+			" -nb '" + color["background"][0] + "'" +  # Dmenu bar background color
 			" -nf '" + color["white"][0] + "'" +       # Dmenu bar text color
 			" -shb '" + color["magenta"][0] + "'" +    # Matched text background color
 			" -shf '" + color["black"][0] + "'" +      # Matched text color

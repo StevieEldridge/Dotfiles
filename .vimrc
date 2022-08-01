@@ -15,6 +15,7 @@ set smarttab
 set autoindent
 set smartindent
 filetype indent on
+filetype plugin indent on
 
 " number of spaces used for autoindents
 set shiftwidth=2
@@ -32,9 +33,6 @@ set hlsearch
 " open splits intuitively
 set splitbelow
 set splitright
-
-" Enables spellcheck
-set spell
 
 " navigate buffers without losing unsaved work
 set hidden
@@ -69,7 +67,7 @@ set showmatch
 "--------------------------------------------------
 
 " Fast shortcut to do a replace
-nnoremap <C-f> :%s//g<Left><Left>
+nnoremap <C-f> :%s//cg<Left><Left><Left>
 
 " Uses homerow to switch to normal mode
 imap jj <Esc>

@@ -16,6 +16,7 @@ Plug 'lewis6991/gitsigns.nvim'              " Adds git decorations
 Plug 'vimwiki/vimwiki'			                " Vim Wiki
 Plug 'adelarsq/neofsharp.vim'               " Syntax Support for FSharp
 Plug 'williamboman/mason.nvim'              " Manages external LSP servers
+Plug 'tweekmonster/startuptime.vim'         " Shows startuptime slowdowns
 
 " Autocompletion
 Plug 'hrsh7th/nvim-cmp'                     " Autocompletion plugin
@@ -62,6 +63,14 @@ let g:airline_theme='gruvbox'
 
 " Uses terminal background over Vim theme background (Useful for transparency)
 hi Normal guibg=NONE ctermbg=NONE
+
+
+"--------------------------------------------------
+" NeoVim Specific Settings
+"--------------------------------------------------
+
+" Enables spellcheck
+set spell
 
 
 "--------------------------------------------------
