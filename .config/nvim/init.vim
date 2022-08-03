@@ -72,7 +72,6 @@ hi Normal guibg=NONE ctermbg=NONE
 " Enables spellcheck
 set spell
 
-
 "--------------------------------------------------
 " Plugin Settings
 "--------------------------------------------------
@@ -82,6 +81,7 @@ let g:airline_powerline_fonts = 1
 let g:airline_detect_spell = 0                " Hides spell
 let g:airline#extensions#tabline#enabled = 1  " Enables airline for tab bar
 let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]' "Disables utf-8 tag
 
 " Changes from powerline to straight tabs
 "let g:airline#extensions#tabline#left_sep = ' '
