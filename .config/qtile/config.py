@@ -29,6 +29,7 @@ from libqtile.utils import guess_terminal
 mod = "mod1"
 terminal = "kitty"
 browser = "com.brave.Browser"
+sessionlock = "betterlockscreen -l"
 
 # -------------------------------------------------
 # Qtile Color Theme
@@ -139,11 +140,16 @@ keys = [
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
+
+    # Kills a window
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
+
+    # Manages qtile session
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Exit Qtile"),
+    Key([mod, "control"], "l", lazy.spawn(sessionlock)),
 
-	# Manages mulitple monitors
+	# Manages multiple monitors
 	#Key([mod], "e", lazy.to_screen(0), desc="Focuses to monitor 0"),
 	#Key([mod], "w", lazy.to_screen(1), desc="Focuses to monitor 1"),
 	Key([mod, "shift"], "space", lazy.next_screen(), desc="Move focus to next monitor"),
