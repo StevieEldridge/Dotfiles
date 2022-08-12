@@ -12,7 +12,6 @@ function fish_greeting
 	# Add any greeting stuff here
 end
 
-
 # ---------------------------------------
 # Aliases
 # ---------------------------------------
@@ -31,6 +30,11 @@ alias kittyrc="nvim ~/.config/kitty/kitty.conf"
 alias sshdrc="sudo nvim /etc/ssh/sshd_config"
 
 alias gitconfig="/usr/bin/git --git-dir=$HOME/.Dotfiles --work-tree=$HOME"
+
+alias lvim="~/.local/bin/lvim"
+
+# Quickly launches dotnet run with appropriate variables
+alias dnr="ASPNETCORE_ENVIRONMENT=Development dotnet run -r linux-x64"
 
 # File Navigation
 alias ..='cd ..'
@@ -71,6 +75,33 @@ end
 # ---------------------------------------
 # Other
 # ---------------------------------------
+
+# Git adds all my config files
+function gitconfigaddall
+  gitconfig add ~/.Xresources
+  gitconfig add ~/.vimrc
+  gitconfig add ~/.bashrc
+  gitconfig add ~/.config/betterlockscreenrc
+  gitconfig add ~/.config/alacritty/alacritty.yml
+  gitconfig add ~/.config/fish/config.fish
+  gitconfig add ~/.config/kitty/kitty.conf
+  gitconfig add ~/.config/nvim/init.vim
+  gitconfig add ~/.config/nvim/lua/
+  gitconfig add ~/.config/picom/picom.conf
+  gitconfig add ~/.config/qtile/
+end
+
+# Disables the systems ability to sleep/suspend/hibernate
+function disablesleep
+  sudo systemctl mask sleep.target suspend.target hibernate.target
+  sudo systemctl restart systemd-logind.service
+end
+
+# Enables the systems ability to sleep/suspend/hibernate
+function disablesleep
+  sudo systemctl unmask sleep.target suspend.target hibernate.target
+  sudo systemctl restart systemd-logind.service
+end
 
 # Quick binding for setting mouse speed
 function mousespeed

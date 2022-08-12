@@ -20,8 +20,11 @@ filetype plugin indent on
 " number of spaces used for autoindents
 set shiftwidth=2
 
+" Highlights the line the cursor is on
+"set cursorline
+
 " adds line numbers
-set number
+set number relativenumber
 
 " columns used for the line number
 set numberwidth=3
@@ -90,6 +93,8 @@ nmap <silent> L :bnext<CR>
 nmap <C-h> gT
 nmap <C-l> gt
 
+" Moves text after cursor to new line
+nmap cl i<CR><ESC>
 
 " Uses Ctrl+hjkl to move between horz/vert windows
 tmap <C-h> <C-\><C-n><C-w>h
@@ -107,6 +112,20 @@ nmap <silent> <C-Down> :resize -3<CR>
 
 " Opens a terminal inside vim
 map tt :new term://fish<CR>
+
+
+"--------------------------------------------------
+" Custom Functions
+"--------------------------------------------------
+
+nmap <silent> <Leader>n :call ToggleNumber()<CR>
+function ToggleNumber()
+  if &rnu
+    set nu nornu
+  else
+    set nu rnu
+  endif
+endfunction
 
 
 "--------------------------------------------------

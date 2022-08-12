@@ -116,6 +116,9 @@ set signcolumn=yes:1
 " Quickly opens NerdTree, mirrors it, moves it to bottom, and resizes it
 nnoremap <silent> T :NERDTreeVCS \| :NERDTreeMirror<CR> \| <C-w>J \| :resize 20<CR>
 
+" Closes the buffer without maximising NerdTree
+nnoremap <silent> <leader>q :bp<cr>:bd #<cr>
+
 " Remaps keys that interfere with my window navigation keymaps
 let g:NERDTreeMapJumpNextSibling='\j'
 let g:NERDTreeMapJumpPrevSibling='\k'

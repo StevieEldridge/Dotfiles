@@ -29,7 +29,7 @@ from libqtile.utils import guess_terminal
 mod = "mod1"
 terminal = "kitty"
 browser = "com.brave.Browser"
-sessionlock = "betterlockscreen -l"
+sessionlock = "betterlockscreen -l dim"
 
 # -------------------------------------------------
 # Qtile Color Theme
@@ -173,7 +173,7 @@ screenGroups = ["asdf", "1234"]
 allGroups = ''.join(screenGroups)
 groups = [Group(i) for i in allGroups]
 
-# Seperates the groups for each screen while navigating to a group
+# Separates the groups for each screen while navigating to a group
 for j, names in enumerate(screenGroups):
     keys.extend(
 		Key([mod], i, lazy.to_screen(j), lazy.group[i].toscreen()) for i in names
@@ -189,7 +189,7 @@ keys.extend(
 # Layout Settings
 # -------------------------------------------------
 
-# Config perameters that most layouts use
+# Config parameters that most layouts use
 layoutTheme = {
 		"border_width":  scale(3),
 		"margin":        scale(12),
@@ -351,7 +351,7 @@ def initWidgets(screenNum):
 
 
 # -------------------------------------------------
-# Screen Initilization
+# Screen Initialization
 # -------------------------------------------------
 
 screens = [
@@ -431,9 +431,9 @@ wl_input_rules = None
 # -------------------------------------------------
 
 @hook.subscribe.startup_once
-def startOnce():
-	home = os.path.expanduser("~")
-	subprocess.call([home + "/.config/qtile/autostart.sh"])
+def autostart():
+    home = os.path.expanduser("~")
+    subprocess.Popen([home + "/.config/qtile/autostart.sh"])
 
 
 # -------------------------------------------------
