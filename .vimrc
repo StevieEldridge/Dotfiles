@@ -49,6 +49,9 @@ set undofile
 " Enable mouse support
 set mouse=a
 
+" Changes leaderkey to space
+let mapleader = " "
+
 " case insensitive search unless capital letters are used
 set ignorecase
 set smartcase

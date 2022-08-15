@@ -10,7 +10,8 @@ Plug 'neovim/nvim-lspconfig'                " Official Language Support Plugin
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Improves syntax highlighting
 Plug 'lewis6991/spellsitter.nvim'           " Spell checker that uses TreeSitter
 Plug 'lukas-reineke/indent-blankline.nvim'  " Shows tabs
-Plug 'vim-airline/vim-airline'              " Airline Statusbar
+"Plug 'vim-airline/vim-airline'             " Airline Statusbar
+Plug 'nvim-lualine/lualine.nvim'            " Lualine Statusbar
 Plug 'tpope/vim-fugitive'                   " A Powerful Git Integration Tool
 Plug 'lewis6991/gitsigns.nvim'              " Adds git decorations
 Plug 'vimwiki/vimwiki'			                " Vim Wiki
@@ -40,6 +41,7 @@ Plug 'ap/vim-css-color'		      	          " Color previews for CSS colors
 " Colortheme plugins
 Plug 'joshdick/onedark.vim'                 " One Colorscheme
 Plug 'gruvbox-community/gruvbox'            " Gruvbox Colorscheme
+Plug 'luisiacc/gruvbox-baby'                " Gruvbox with TreeSitter Support
 
 " Unused Plugins
 "Plug 'vifm/vifm.vim'                       " File Manager
@@ -58,8 +60,8 @@ lua require('plugns')
 "--------------------------------------------------
 
 set termguicolors
+let g:gruvbox_bold = 0
 colorscheme gruvbox
-let g:airline_theme='gruvbox'
 
 " Uses terminal background over Vim theme background (Useful for transparency)
 hi Normal guibg=NONE ctermbg=NONE
@@ -77,6 +79,7 @@ set spell
 "--------------------------------------------------
 
 " AirLine
+let g:airline_theme='gruvbox'
 let g:airline_powerline_fonts = 1
 let g:airline_detect_spell = 0                " Hides spell
 let g:airline#extensions#tabline#enabled = 1  " Enables airline for tab bar
