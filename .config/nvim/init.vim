@@ -6,18 +6,21 @@ source ~/.vimrc
 "--------------------------------------------------
 call plug#begin('~/.config/nvim/plugged')
 
+" LSP Related Stuff
 Plug 'neovim/nvim-lspconfig'                " Official Language Support Plugin
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Improves syntax highlighting
 Plug 'lewis6991/spellsitter.nvim'           " Spell checker that uses TreeSitter
-Plug 'lukas-reineke/indent-blankline.nvim'  " Shows tabs
-"Plug 'vim-airline/vim-airline'             " Airline Statusbar
-Plug 'nvim-lualine/lualine.nvim'            " Lualine Statusbar
-Plug 'tpope/vim-fugitive'                   " A Powerful Git Integration Tool
-Plug 'lewis6991/gitsigns.nvim'              " Adds git decorations
-Plug 'vimwiki/vimwiki'			                " Vim Wiki
 Plug 'adelarsq/neofsharp.vim'               " Syntax Support for FSharp
 Plug 'williamboman/mason.nvim'              " Manages external LSP servers
-Plug 'tweekmonster/startuptime.vim'         " Shows startuptime slowdowns
+
+" Git stuff
+Plug 'tpope/vim-fugitive'                   " A Powerful Git Integration Tool
+Plug 'lewis6991/gitsigns.nvim'              " Adds git decorations
+
+" Status Bars
+"Plug 'vim-airline/vim-airline'             " Airline Statusbar
+"Plug 'itchyny/lightline.vim'               " Lightline Statusbar
+Plug 'nvim-lualine/lualine.nvim'            " Lualine Statusbar
 
 " Autocompletion
 Plug 'hrsh7th/nvim-cmp'                     " Autocompletion plugin
@@ -41,11 +44,15 @@ Plug 'ap/vim-css-color'		      	          " Color previews for CSS colors
 " Colortheme plugins
 Plug 'joshdick/onedark.vim'                 " One Colorscheme
 Plug 'gruvbox-community/gruvbox'            " Gruvbox Colorscheme
-Plug 'luisiacc/gruvbox-baby'                " Gruvbox with TreeSitter Support
+
+" Other
+Plug 'vimwiki/vimwiki'			                " Vim Wiki
+Plug 'tweekmonster/startuptime.vim'         " Shows startuptime slowdowns
+Plug 'lukas-reineke/indent-blankline.nvim'  " Shows tabs
+Plug 'ahmedkhalf/project.nvim'              " Stores recent projects
 
 " Unused Plugins
 "Plug 'vifm/vifm.vim'                       " File Manager
-"Plug 'itchyny/lightline.vim'               " Lightline Statusbar
 "Plug 'kyazdani42/nvim-web-devicons'        " Optional icons for nvim-tree
 "Plug 'kyazdani42/nvim-tree.lua'            " Project File Explorer
 
@@ -74,6 +81,9 @@ hi Normal guibg=NONE ctermbg=NONE
 " Enables spellcheck
 set spell
 
+" Removes line numbers and spellcheck from terminal buffers
+autocmd TermOpen * setlocal nonumber norelativenumber nospell
+
 "--------------------------------------------------
 " Plugin Settings
 "--------------------------------------------------
@@ -93,6 +103,12 @@ let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]' "Disables utf-8 tag
 set laststatus=2
 set noshowmode                                " Disables -- INSERT -- notice
 
+
+" Telescope
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 "--------------------------------------------------
 " Vim Wiki Settings
