@@ -229,7 +229,12 @@ extension_defaults = widget_defaults.copy()
 barMarginX = 10  # Margin on the left and right side of the bar
 sepPadding = 10  # Spacing between each widget
 
-# Intitializes an array of widgets for one screen bar
+seperator = widget.Sep(
+    linewidth = scale(0),
+    padding = scale(sepPadding),
+)
+
+# Initializes an array of widgets for one screen bar
 # @Input - A screen number for a given screen
 def initWidgets(screenNum):
 	baseWidgets = [
@@ -277,10 +282,7 @@ def initWidgets(screenNum):
 		widget.Systray(
 			icon_size = 20,
 		),
-		widget.Sep(
-			linewidth = scale(0),
-			padding = scale(sepPadding),
-		),
+        seperator,
 		widget.CheckUpdates(
 			display_format = "upd: {updates}",
 			distro = "Arch",
@@ -290,20 +292,14 @@ def initWidgets(screenNum):
 			colour_have_updates = color["black"],
 			colour_no_updates = color["black"],
 		),
-		widget.Sep(
-			linewidth = scale(0),
-			padding = scale(sepPadding),
-		),
+        seperator,
 		widget.CPU(
 			format = "cpu: {load_percent}%",
 			update_interval = 1.0,
 			background = color["red"],
 			foreground = color["black"],
 		),
-		widget.Sep(
-			linewidth = scale(0),
-			padding = scale(sepPadding),
-		),
+        seperator,
 		widget.Memory(
 			measure_mem = "G",
 			update_interval = 1.0,
@@ -311,19 +307,13 @@ def initWidgets(screenNum):
 			background = color["yellow"],
 			foreground = color["black"],
 		),
-		widget.Sep(
-			linewidth = scale(0),
-			padding = scale(sepPadding),
-		),
+        seperator,
 		widget.Clock(
 			format = "%m/%d  %I:%M %p",
 			background = color["blue"],
 			foreground = color["black"],
 		),
-		widget.Sep(
-			linewidth = scale(0),
-			padding = scale(sepPadding),
-		),
+        seperator,
 		widget.Volume(
 			limit_max_volume=True,
 			update_interval = 0.1,
@@ -331,12 +321,6 @@ def initWidgets(screenNum):
 			step = 5,
 			background = color["magenta"],
 			foreground = color["black"],
-		),
-		widget.Wallpaper(
-			directory="~/Pictures/wallpapers/aw0",
-			wallpaper_mode="fill",
-			fontsize=0,
-			padding = scale(0),
 		),
 		widget.Sep(
 			linewidth = scale(0),
