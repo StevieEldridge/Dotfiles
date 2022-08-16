@@ -84,6 +84,7 @@ set spell
 " Removes line numbers and spellcheck from terminal buffers
 autocmd TermOpen * setlocal nonumber norelativenumber nospell
 
+
 "--------------------------------------------------
 " Plugin Settings
 "--------------------------------------------------
@@ -109,6 +110,7 @@ nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>fp <cmd>Telescope projects<cr>   " Quickly finds previous projects
 
 "--------------------------------------------------
 " Vim Wiki Settings
