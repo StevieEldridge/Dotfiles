@@ -2,6 +2,9 @@
 # ~/.bashrc
 #
 
+# Adds Doom Emacs to Bash
+export PATH="$HOME/.emacs.d/bin:$PATH"
+
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
