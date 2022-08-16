@@ -27,10 +27,11 @@ from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from CustomVerticalTile import VerticalTile
 
-mod = "mod1"
-terminal = "kitty"
-browser = "com.brave.Browser"
+mod         = "mod1"
+terminal    = "kitty"
+browser     = "com.brave.Browser"
 sessionlock = "betterlockscreen -l dim"
+emacs       = "emacsclient -c -a 'emacs'"
 
 # -------------------------------------------------
 # Qtile Color Theme
@@ -89,6 +90,7 @@ def scale(initValue):
 keys = [
 	# Commands to launch essential applications
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+    Key([mod, "shift"], "Return", lazy.spawn(emacs), desc="Launch emacs"),
 	Key([mod], "b", lazy.spawn(browser), desc="Launches preferred browser"),
 	Key([mod, "shift"], "r", lazy.spawncmd(), desc="Uses the qtile spawn"),
     Key([mod], "r",
@@ -139,7 +141,7 @@ keys = [
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
     # multiple stack panes
-    Key([mod, "shift"], "Return", lazy.layout.toggle_split()),
+    Key([mod, "control"], "Return", lazy.layout.toggle_split()),
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
