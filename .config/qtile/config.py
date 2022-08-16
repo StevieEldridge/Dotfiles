@@ -25,6 +25,7 @@ from libqtile import bar, layout, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
+from CustomVerticalTile import VerticalTile
 
 mod = "mod1"
 terminal = "kitty"
@@ -81,6 +82,10 @@ def scale(initValue):
 # -------------------------------------------------
 # Keybindings
 # -------------------------------------------------
+
+# A list of available commands that can be bound to keys can be found
+# at https://docs.qtile.org/en/latest/manual/config/lazy.html
+
 keys = [
 	# Commands to launch essential applications
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
@@ -100,11 +105,9 @@ keys = [
 			" -nhb '" + color["foreground"][0] + "'" + # Partial matched text background color
 			" -nhf '" + color["black"][0] + "'"        # Partial matched text color
 		),
-		desc="Spawn a command using a prompt widget"
+		desc="Spawn a command using DMenu"
 	),
 
-    # A list of available commands that can be bound to keys can be found
-    # at https://docs.qtile.org/en/latest/manual/config/lazy.html
     # Switch between windows
     Key([mod], "h", lazy.layout.left(), desc="Move f to left"),
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
@@ -123,14 +126,14 @@ keys = [
     # will be to screen edge - window would shrink.
     Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
     Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
-    Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
     Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
     Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
 	Key([mod], "i", lazy.layout.grow(), desc="Grows window"),
 	Key([mod], "o", lazy.layout.shrink(), desc="Shrinks window"),
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
+    Key([mod], "m", lazy.layout.maximize(), desc="Toggles fullscreen mode"),
 	Key([mod], "w", lazy.window.toggle_floating(), desc="Toggles floating mode"),
-	Key([mod], "m", lazy.window.toggle_fullscreen(), desc="Toggles fullscreen mode"),
+    Key([mod, "shift"], "m", lazy.window.toggle_fullscreen(), desc="Toggles fullscreen mode"),
 
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
@@ -197,17 +200,23 @@ layoutTheme = {
 		"border_normal": color["bdrNormal"]
 	}
 
+
 layouts = [
     layout.MonadTall(**layoutTheme),
     layout.Max(**layoutTheme),
-    layout.VerticalTile(**layoutTheme),
+    VerticalTile(** {
+        "border_width": layoutTheme["border_width"],
+		"margin":        round(layoutTheme["margin"] * 0.667),
+		"border_focus":  layoutTheme["border_focus"],
+		"border_normal": layoutTheme["border_normal"]
+	}),
 	# layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
     # layout.Stack(num_stacks=2),
 	# layout.Bsp(**layoutTheme),
 	# layout.Matrix(**layoutTheme),
     # layout.MonadWide(**layoutTheme),
     # layout.RatioTile(**layoutTheme),
-	# layout.Tile(**layoutTheme),
+    # layout.Tile(**layoutTheme),
     # layout.TreeTab(**layoutTheme),
 	# layout.Zoomy(),
 ]
