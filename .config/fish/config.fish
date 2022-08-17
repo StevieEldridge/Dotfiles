@@ -43,6 +43,14 @@ alias .3='cd ../../..'
 alias .4='cd ../../../..'
 alias .5='cd ../../../../..'
 
+
+# ---------------------------------------
+# Church of Emacs Section
+# ---------------------------------------
+
+alias emacs="emacsclient -c -a 'emacs'"
+
+
 # ---------------------------------------
 # Brings back Bash !! and !$
 # ---------------------------------------
@@ -89,6 +97,9 @@ function gitconfigaddall
   gitconfig add ~/.config/nvim/lua/
   gitconfig add ~/.config/picom/picom.conf
   gitconfig add ~/.config/qtile/
+  gitconfig add ~/.doom.d/config.el
+  gitconfig add ~/.doom.d/init.el
+  gitconfig add ~/.doom.d/packages.el
 end
 
 # Disables the systems ability to sleep/suspend/hibernate
@@ -113,3 +124,5 @@ alias rickroll='curl -s -L https://raw.githubusercontent.com/keroserene/rickroll
 
 # Enables Vim Mode
 fish_vi_key_bindings
+
+bind -M insert jj "if commandline -P; commandline -f cancel; else; set fish_bind_mode default; commandline -f backward-char force-repaint; end"
