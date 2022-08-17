@@ -5,6 +5,9 @@
 # Adds Doom Emacs to Bash
 export PATH="$HOME/.emacs.d/bin:$PATH"
 
+# Nvm requests it
+source /usr/share/nvm/init-nvm.sh
+
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
