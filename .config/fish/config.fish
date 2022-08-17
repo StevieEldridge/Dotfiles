@@ -96,7 +96,9 @@ function gitconfigaddall
   gitconfig add ~/.config/nvim/init.vim
   gitconfig add ~/.config/nvim/lua/
   gitconfig add ~/.config/picom/picom.conf
-  gitconfig add ~/.config/qtile/
+  gitconfig add ~/.config/qtile/autostart.sh
+  gitconfig add ~/.config/qtile/config.py
+  gitconfig add ~/.config/qtile/CustomVerticalTile.py
   gitconfig add ~/.doom.d/config.el
   gitconfig add ~/.doom.d/init.el
   gitconfig add ~/.doom.d/packages.el

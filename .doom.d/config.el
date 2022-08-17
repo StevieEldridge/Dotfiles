@@ -43,7 +43,7 @@
 ;; Evil Mode Keybindings
 ;; ----------------------------------------
 
-(define-key evil-insert-state-map "jj" 'evil-normal-state)
+;;(define-key evil-insert-state-map "jj" 'evil-normal-state)
 
 ;; Quick page and buffer navigation
 (define-key evil-normal-state-map "J" 'evil-scroll-down)
