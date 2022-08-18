@@ -30,8 +30,9 @@ from CustomVerticalTile import VerticalTile
 mod         = "mod1"
 terminal    = "kitty"
 browser     = "com.brave.Browser"
-sessionlock = "betterlockscreen -l dim"
-emacs       = "emacsclient -c -a 'emacs'"
+sessionlock = "betterlockscreen -l"
+#emacs       = "emacsclient -c -a 'emacs'"
+emacs       = "emacs"
 
 # -------------------------------------------------
 # Qtile Color Theme

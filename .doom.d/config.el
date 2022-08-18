@@ -28,7 +28,7 @@
 ;; there are two ways to load a theme. both assume the theme is installed and
 ;; available. you can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. this is the default:
-(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-gruvbox)
 
 ;; this determines the style of line numbers in effect. if set to `nil', line
 ;; numbers are disabled. for relative line numbers, set this to `relative'.
@@ -36,14 +36,14 @@
 
 ;; if you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. it must be set before org loads!
-(setq org-directory "~/org/")
+;;(setq org-directory "~/org/")
 
 
 ;; ----------------------------------------
 ;; Evil Mode Keybindings
 ;; ----------------------------------------
 
-;;(define-key evil-insert-state-map "jj" 'evil-normal-state)
+(define-key evil-insert-state-map "jj" 'evil-normal-state)
 
 ;; Quick page and buffer navigation
 (define-key evil-normal-state-map "J" 'evil-scroll-down)
@@ -58,10 +58,40 @@
 (define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)
 
 ;; Resizing Windows
-(define-key evil-normal-state-map (kbd "C-<up>") 'evil-window-increase-height)
-(define-key evil-normal-state-map (kbd "C-<down>") 'evil-window-decrease-height)
+(define-key evil-normal-state-map (kbd "C-<up>")    'evil-window-increase-height)
+(define-key evil-normal-state-map (kbd "C-<down>")  'evil-window-decrease-height)
 (define-key evil-normal-state-map (kbd "C-<right>") 'evil-window-increase-width)
-(define-key evil-normal-state-map (kbd "C-<left>") 'evil-window-decrease-width)
+(define-key evil-normal-state-map (kbd "C-<left>")  'evil-window-decrease-width)
+
+
+;; ----------------------------------------
+;; Org Mode
+;; ----------------------------------------
+
+(after! org
+  (setq org-directory "~/Documents/org/")
+  (setq org-agenda-files (directory-files-recursively "~/Documents/org/agenda/" "\\.org$"))
+  (setq org-log-done 'time)
+)
+
+;; Sets up org auto tangle
+(use-package! org-auto-tangle
+  :defer t
+  :hook (org-mode . org-auto-tangle-mode)
+  :config
+  (setq org-auto-tangle-default t)
+)
+
+
+;; ----------------------------------------
+;; Other Settings From Me
+;; ----------------------------------------
+
+;; Customizes the Centaur Tabs
+(setq centaur-tabs-set-close-button nil)
+(setq centaur-tabs-height 32)
+(setq centaur-tabs-set-bar 'under)
+(setq x-underline-at-descent-line t)
 
 
 ;; ----------------------------------------
