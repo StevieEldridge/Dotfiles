@@ -43,7 +43,22 @@
 ;; Evil Mode Keybindings
 ;; ----------------------------------------
 
-(define-key evil-insert-state-map "jj" 'evil-normal-state)
+(defun my-jj ()
+  (interactive)
+  (let* ((initial-key ?j)
+         (final-key ?j)
+         (timeout 0.3)
+         (event (read-event nil nil timeout)))
+    (if event
+        ;; timeout met
+        (if (and (characterp event) (= event final-key))
+            (evil-normal-state)
+          (insert initial-key)
+          (push event unread-command-events))
+      ;; timeout exceeded
+      (insert initial-key))))
+
+(define-key evil-insert-state-map (kbd "j") 'my-jj)
 
 ;; Quick page and buffer navigation
 (define-key evil-normal-state-map "J" 'evil-scroll-down)
