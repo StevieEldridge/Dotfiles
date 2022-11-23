@@ -12,6 +12,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Improves syntax hi
 Plug 'lewis6991/spellsitter.nvim'           " Spell checker that uses TreeSitter
 Plug 'adelarsq/neofsharp.vim'               " Syntax Support for FSharp
 Plug 'williamboman/mason.nvim'              " Manages external LSP servers
+Plug 'folke/trouble.nvim'                   " Quickly lists all code problems
 
 " Git stuff
 Plug 'tpope/vim-fugitive'                   " A Powerful Git Integration Tool
@@ -50,6 +51,10 @@ Plug 'vimwiki/vimwiki'			                " Vim Wiki
 Plug 'tweekmonster/startuptime.vim'         " Shows startuptime slowdowns
 Plug 'lukas-reineke/indent-blankline.nvim'  " Shows tabs
 Plug 'ahmedkhalf/project.nvim'              " Stores recent projects
+Plug 'rmagatti/auto-session'                " Loads most recent project session
+Plug 'akinsho/toggleterm.nvim'              " Better terminal inside Vim
+Plug 'numToStr/Comment.nvim'                " Makes commenting code easier
+Plug 'folke/which-key.nvim'                 " Displays possible hotkey combinations
 
 " Unused Plugins
 "Plug 'vifm/vifm.vim'                       " File Manager
@@ -120,8 +125,29 @@ set noshowmode                                " Disables -- INSERT -- notice
 nnoremap <leader>tf <cmd>Telescope find_files<cr>
 nnoremap <leader>tg <cmd>Telescope live_grep<cr>
 nnoremap <leader>tb <cmd>Telescope buffers<cr>
-nnoremap <leader>th <cmd>Telescope help_tags<cr>
+"nnoremap <leader>th <cmd>Telescope help_tags<cr>
 nnoremap <leader>tp <cmd>Telescope projects<cr>   " Quickly finds previous projects
+
+" Trouble
+nnoremap <leader>xx <cmd>TroubleToggle<cr>
+nnoremap <leader>xw <cmd>TroubleToggle workspace_diagnostics<cr>
+nnoremap <leader>xd <cmd>TroubleToggle document_diagnostics<cr>
+nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
+nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
+nnoremap <leader>gR <cmd>TroubleToggle lsp_references<cr>
+
+" ToggleTerm
+nnoremap <leader>tt <cmd>ToggleTerm<cr>
+nnoremap <leader>th <cmd>ToggleTerm size=16 direction=horizontal<cr>
+nnoremap <leader>tv <cmd>ToggleTerm size=55 direction=vertical<cr>
+nnoremap <leader>tT <cmd>ToggleTerm direction=tab<cr>
+nnoremap <leader>tc <cmd>ToggleTerm direction=float<cr>
+nnoremap <leader>2tt <cmd>2ToggleTerm<cr>
+nnoremap <leader>2th <cmd>2ToggleTerm size=16 direction=horizontal<cr>
+nnoremap <leader>2tv <cmd>2ToggleTerm size=55 direction=vertical<cr>
+nnoremap <leader>2tT <cmd>2ToggleTerm direction=tab<cr>
+nnoremap <leader>ta <cmd>ToggleTermToggleAll<cr>
+
 
 "--------------------------------------------------
 " Vim Wiki Settings
