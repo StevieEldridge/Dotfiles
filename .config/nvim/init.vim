@@ -84,6 +84,17 @@ set spell
 " Removes line numbers and spellcheck from terminal buffers
 autocmd TermOpen * setlocal nonumber norelativenumber nospell
 
+" Maps quick copying to clipboard
+nmap <leader>yy "+yy
+nmap <leader>y "+y
+vmap <leader>y "+y
+
+" Maps quick pasting from clipboard
+nmap <leader>p "+p
+nmap <leader>P "+P
+vmap <leader>p "+p
+vmap <leader>P "+P
+
 
 "--------------------------------------------------
 " Plugin Settings
@@ -106,11 +117,11 @@ set noshowmode                                " Disables -- INSERT -- notice
 
 
 " Telescope
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-nnoremap <leader>fp <cmd>Telescope projects<cr>   " Quickly finds previous projects
+nnoremap <leader>tf <cmd>Telescope find_files<cr>
+nnoremap <leader>tg <cmd>Telescope live_grep<cr>
+nnoremap <leader>tb <cmd>Telescope buffers<cr>
+nnoremap <leader>th <cmd>Telescope help_tags<cr>
+nnoremap <leader>tp <cmd>Telescope projects<cr>   " Quickly finds previous projects
 
 "--------------------------------------------------
 " Vim Wiki Settings

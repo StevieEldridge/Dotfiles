@@ -84,6 +84,11 @@ end
 # Other
 # ---------------------------------------
 
+# Adds nvm to fish
+function nvm
+    bass source ~/.nvm/nvm.sh --no-use ';' nvm $argv
+end
+
 # Git adds all my config files
 function gitconfigaddall
   gitconfig add ~/.Xresources
@@ -127,4 +132,5 @@ alias rickroll='curl -s -L https://raw.githubusercontent.com/keroserene/rickroll
 # Enables Vim Mode
 fish_vi_key_bindings
 
+# Maps jj to enter normal mode
 bind -M insert jj "if commandline -P; commandline -f cancel; else; set fish_bind_mode default; commandline -f backward-char force-repaint; end"

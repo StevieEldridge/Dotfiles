@@ -1,4 +1,5 @@
 -- Defines the base require path
+
 local nvimLsp = require('lspconfig')
 
 -- An array containing all LSP servers to be used
@@ -6,6 +7,7 @@ local servers = {
     'pyright',                  -- Python
     'fsautocomplete',           -- FSharp
     'csharp_ls',                -- CSharp
+    'clangd',                   -- C/C++
     'bashls',                   -- Bash
     'remark_ls',                -- Markdown
     'vimls',                    -- Vimcode
@@ -16,6 +18,15 @@ local servers = {
     'cssls',                    -- CSS/LESS/SASS
 }
 
+-- Mappings.
+-- See `:help vim.diagnostic.*` for documentation on any of the below functions
+local opts = { noremap=true, silent=true }
+-- Shows any issues on the current line
+vim.keymap.set('n', '<Leader>e', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '<Leader>[d', vim.diagnostic.goto_prev, opts)
+vim.keymap.set('n', '<Leader>]d', vim.diagnostic.goto_next, opts)
+vim.keymap.set('n', '<Leader>q', vim.diagnostic.setloclist, opts)
+
 -- Special function that runs when a server attaches to a NeoVim buffer
 -- Useful for global settings for each server such as keymaps
 local onAttach = function(client, bufnr)
@@ -25,34 +36,31 @@ local onAttach = function(client, bufnr)
     end
 
     -- Config options for each keybinding
-    local opts = { noremap=true, silent=true }
+    local bufopts = { noremap=true, silent=true }
 
     -- Jumps to declaration of a symbol (function, variable, etc)
-    bufSetKeymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    bufSetKeymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    vim.keymap.set('n', '<Leader>gD', vim.lsp.buf.declaration, bufopts)
+    vim.keymap.set('n', '<Leader>gd', vim.lsp.buf.definition, bufopts)
     -- See some info about a symbol in a hover window
-    bufSetKeymap('n', '<Leader>k', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    bufSetKeymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    bufSetKeymap('n', '<Leader>K', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-    bufSetKeymap('n', '<Leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-    bufSetKeymap('n', '<Leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-    bufSetKeymap('n', '<Leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-    bufSetKeymap('n', '<Leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    bufSetKeymap('n', '<Leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    bufSetKeymap('n', '<Leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+    vim.keymap.set('n', '<Leader>K', vim.lsp.buf.hover, bufopts)
+    vim.keymap.set('n', '<Leader>gi', vim.lsp.buf.implementation, bufopts)
+    vim.keymap.set('n', '<Leader><C-k>', vim.lsp.buf.signature_help, bufopts)
+    vim.keymap.set('n', '<Leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+    vim.keymap.set('n', '<Leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+    vim.keymap.set('n', '<Leader>wl', function()
+      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end, bufopts)
+    vim.keymap.set('n', '<Leader>D', vim.lsp.buf.type_definition, bufopts)
+    vim.keymap.set('n', '<Leader>rn', vim.lsp.buf.rename, bufopts)
+    vim.keymap.set('n', '<Leader>ca', vim.lsp.buf.code_action, bufopts)
     -- Shows a list of references to a symbol
-    bufSetKeymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    -- Shows any issues on the current line
-    bufSetKeymap('n', '<Leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-    bufSetKeymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-    bufSetKeymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-    bufSetKeymap('n', '<Leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-    bufSetKeymap('n', '<Leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+    vim.keymap.set('n', '<Leader>gr', vim.lsp.buf.references, bufopts)
+    vim.keymap.set('n', '<Leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
 -- Links autocomplete up with the language servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- Sets up all LSP servers
 -- Same as require('lspconfig').SERVER.setup {}
@@ -133,3 +141,6 @@ cmp.setup {
         { name = 'luasnip' },
     },
 }
+
+-- Opens diagnostic window if the cursor is hovered over an error
+vim.cmd [[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]

@@ -33,6 +33,7 @@ browser     = "com.brave.Browser"
 sessionlock = "betterlockscreen -l"
 #emacs       = "emacsclient -c -a 'emacs'"
 emacs       = "emacs"
+screenshot  = "flameshot gui"
 
 # -------------------------------------------------
 # Qtile Color Theme
@@ -161,7 +162,7 @@ keys = [
 	Key([mod, "shift"], "space", lazy.next_screen(), desc="Move focus to next monitor"),
 
 	# Takes a screenshot and saves it to clipboard
-	Key([mod], "Print", lazy.spawn("gnome-screenshot -i")),
+	Key([mod], "Print", lazy.spawn(screenshot)),
 ]
 
 
@@ -197,22 +198,22 @@ keys.extend(
 
 # Config parameters that most layouts use
 layoutTheme = {
-		"border_width":  scale(3),
-		"margin":        scale(12),
-		"border_focus":  color["bdrFocus"],
-		"border_normal": color["bdrNormal"]
-	}
+    "border_width":  scale(3),
+    "margin":        scale(12),
+    "border_focus":  color["bdrFocus"],
+    "border_normal": color["bdrNormal"]
+}
 
 
 layouts = [
     layout.MonadTall(**layoutTheme),
-    layout.Max(**layoutTheme),
     VerticalTile(** {
-        "border_width": layoutTheme["border_width"],
+        "border_width":  layoutTheme["border_width"],
 		"margin":        round(layoutTheme["margin"] * 0.667),
 		"border_focus":  layoutTheme["border_focus"],
 		"border_normal": layoutTheme["border_normal"]
 	}),
+    layout.Max(**layoutTheme),
 	# layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
     # layout.Stack(num_stacks=2),
 	# layout.Bsp(**layoutTheme),
