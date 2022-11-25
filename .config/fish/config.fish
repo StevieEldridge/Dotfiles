@@ -50,6 +50,9 @@ alias .5='cd ../../../../..'
 
 alias emacs="emacsclient -c -a 'emacs'"
 
+# Adds Doom Emacs to Fish
+export PATH="$HOME/.emacs.d/bin:$PATH"
+
 
 # ---------------------------------------
 # Brings back Bash !! and !$
