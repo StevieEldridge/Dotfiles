@@ -2,4 +2,4 @@
 
 picom &
 ~/.fehbg &
-#/usr/bin/emacs --daemon &
+/usr/bin/emacs --daemon &

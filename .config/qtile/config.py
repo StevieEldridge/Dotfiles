@@ -31,8 +31,8 @@ mod         = "mod1"
 terminal    = "kitty"
 browser     = "com.brave.Browser"
 sessionlock = "betterlockscreen -l"
-#emacs       = "emacsclient -c -a 'emacs'"
-emacs       = "emacs"
+emacs       = "emacsclient -c -a 'emacs'"
+#emacs       = "emacs"
 screenshot  = "flameshot gui"
 
 # -------------------------------------------------
@@ -176,7 +176,7 @@ keys = [
 
 # Configures the workspaces for each screen where each string in the array
 # represents a different set of workspaces for each screen
-screenGroups = ["asdf", "1234"]
+screenGroups = ["asdfg", "12345"]
 allGroups = ''.join(screenGroups)
 groups = [Group(i) for i in allGroups]
 
@@ -390,8 +390,8 @@ mouse = [
 
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: list
-follow_mouse_focus = False
-bring_front_click = False
+follow_mouse_focus = True
+bring_front_click = True
 floating_layout = layout.Floating(
     float_rules=[
         # Run the utility of `xprop` to see the wm class and name of an X client.

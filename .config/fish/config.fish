@@ -32,6 +32,7 @@ alias sshdrc="sudo nvim /etc/ssh/sshd_config"
 alias gitconfig="/usr/bin/git --git-dir=$HOME/.Dotfiles --work-tree=$HOME"
 
 alias lvim="~/.local/bin/lvim"
+alias scli="scala-cli"
 
 # Quickly launches dotnet run with appropriate variables
 alias dnr="ASPNETCORE_ENVIRONMENT=Development dotnet run -r linux-x64"

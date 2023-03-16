@@ -1,6 +1,12 @@
 " Imports the .vimrc settings
 source ~/.vimrc
 
+" number of spaces in a <Tab>
+set tabstop=2
+set softtabstop=2
+set expandtab
+set smarttab
+
 "--------------------------------------------------
 " Plugins
 "--------------------------------------------------
@@ -13,6 +19,7 @@ Plug 'lewis6991/spellsitter.nvim'           " Spell checker that uses TreeSitter
 Plug 'adelarsq/neofsharp.vim'               " Syntax Support for FSharp
 Plug 'williamboman/mason.nvim'              " Manages external LSP servers
 Plug 'folke/trouble.nvim'                   " Quickly lists all code problems
+Plug 'scalameta/nvim-metals'                " Better Scala LSP than lspconfig setup
 
 " Git stuff
 Plug 'tpope/vim-fugitive'                   " A Powerful Git Integration Tool
@@ -51,7 +58,7 @@ Plug 'vimwiki/vimwiki'			                " Vim Wiki
 Plug 'tweekmonster/startuptime.vim'         " Shows startuptime slowdowns
 Plug 'lukas-reineke/indent-blankline.nvim'  " Shows tabs
 Plug 'ahmedkhalf/project.nvim'              " Stores recent projects
-Plug 'rmagatti/auto-session'                " Loads most recent project session
+"Plug 'rmagatti/auto-session'                " Loads most recent project session
 Plug 'akinsho/toggleterm.nvim'              " Better terminal inside Vim
 Plug 'numToStr/Comment.nvim'                " Makes commenting code easier
 Plug 'folke/which-key.nvim'                 " Displays possible hotkey combinations

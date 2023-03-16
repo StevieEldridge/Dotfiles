@@ -112,9 +112,13 @@ nmap <silent> <C-Right> :vertical resize +3<CR>
 nmap <silent> <C-Left> :vertical resize -3<CR>
 nmap <silent> <C-Up> :resize +3<CR>
 nmap <silent> <C-Down> :resize -3<CR>
+tmap <silent> <C-Right> <cmd>vertical resize +3<CR>
+tmap <silent> <C-Left> <cmd>vertical resize -3<CR>
+tmap <silent> <C-Up> <cmd>resize +3<CR>
+tmap <silent> <C-Down> <cmd>resize -3<CR>
 
 " Opens a terminal inside vim
-map tt :new term://fish<CR>
+" map tt :new term://fish<CR>
 
 
 "--------------------------------------------------
