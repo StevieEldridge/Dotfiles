@@ -52,6 +52,7 @@ Plug 'ap/vim-css-color'		      	          " Color previews for CSS colors
 " Colortheme plugins
 Plug 'joshdick/onedark.vim'                 " One Colorscheme
 Plug 'gruvbox-community/gruvbox'            " Gruvbox Colorscheme
+Plug 'catppuccin/nvim', {'as': 'catppuccin'}
 
 " Other
 Plug 'vimwiki/vimwiki'			                " Vim Wiki
@@ -79,8 +80,8 @@ lua require('plugns')
 "--------------------------------------------------
 
 set termguicolors
-let g:gruvbox_bold = 0
-colorscheme gruvbox
+" let g:gruvbox_bold = 0
+colorscheme catppuccin-frappe
 
 " Uses terminal background over Vim theme background (Useful for transparency)
 hi Normal guibg=NONE ctermbg=NONE
@@ -113,7 +114,7 @@ vmap <leader>P "+P
 "--------------------------------------------------
 
 " AirLine
-let g:airline_theme='gruvbox'
+let g:airline_theme='catppuccin'
 let g:airline_powerline_fonts = 1
 let g:airline_detect_spell = 0                " Hides spell
 let g:airline#extensions#tabline#enabled = 1  " Enables airline for tab bar

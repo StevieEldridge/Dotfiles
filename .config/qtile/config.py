@@ -54,19 +54,34 @@ color = dict (
 		#bdrFocus   = "f580ff",
 		#bdrNormal  = "5c607f"
 
+        # Catppuccin Frappe
+        background = ["#303446", "#303446"],
+		foreground = ["#c6d0f5", "#c6d0f5"],
+		black      = ["#292c3c", "#292c3c"],
+		red        = ["#e78284", "#e78284"],
+		green      = ["#a6d189", "#a6d189"],
+		yellow     = ["#e5c890", "#e5c890"],
+		blue       = ["#8caaee", "#8caaee"],
+		magenta    = ["#f4b8e4", "#f4b8e4"],
+		cyan       = ["#81c8be", "#81c8be"],
+		white      = ["#b5bfe2", "#b5bfe2"],
+		bdrFocus   = "a6d189",
+		bdrNormal  = "8caaee"
+
+
         # Gruvbox
-        background = ["#282828", "#282828"],
-		foreground = ["#ebdbb2", "#ebdbb2"],
-		black      = ["#282828", "#282828"],
-		red        = ["#cc241d", "#cc241d"],
-		green      = ["#98971a", "#98971a"],
-		yellow     = ["#d79921", "#d79921"],
-		blue       = ["#458588", "#458588"],
-		magenta    = ["#b16286", "#b16286"],
-		cyan       = ["#689d6a", "#689d6a"],
-		white      = ["#a89984", "#a89984"],
-		bdrFocus   = "d79921",
-		bdrNormal  = "928374"
+        # background = ["#282828", "#282828"],
+		# foreground = ["#ebdbb2", "#ebdbb2"],
+		# black      = ["#282828", "#282828"],
+		# red        = ["#cc241d", "#cc241d"],
+		# green      = ["#98971a", "#98971a"],
+		# yellow     = ["#d79921", "#d79921"],
+		# blue       = ["#458588", "#458588"],
+		# magenta    = ["#b16286", "#b16286"],
+		# cyan       = ["#689d6a", "#689d6a"],
+		# white      = ["#a89984", "#a89984"],
+		# bdrFocus   = "d79921",
+		# bdrNormal  = "928374"
 	)
 
 
@@ -102,7 +117,7 @@ keys = [
 			" -fn 'FiraCode Nerd Font-12'" +
 			" -nb '" + color["background"][0] + "'" +  # Dmenu bar background color
 			" -nf '" + color["white"][0] + "'" +       # Dmenu bar text color
-			" -shb '" + color["magenta"][0] + "'" +    # Matched text background color
+			" -shb '" + color["green"][0] + "'" +    # Matched text background color
 			" -shf '" + color["black"][0] + "'" +      # Matched text color
 			" -sb '" + color["foreground"][0] + "'" +  # Selected background color
 			" -sf '" + color["black"][0] + "'" +       # Selected text color
@@ -260,7 +275,7 @@ def initWidgets(screenNum):
 			borderwidth = scale(4),
 			active = color["green"],
 			inactive = color["foreground"],
-			highlight_color = color["white"],
+			highlight_color = color["background"],
 			highlight_method = "line",
 			this_current_screen_border = color["green"],
 			this_screen_border = color["green"],
