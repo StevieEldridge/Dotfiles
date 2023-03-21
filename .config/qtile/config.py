@@ -26,6 +26,7 @@ from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from CustomVerticalTile import VerticalTile
+from InitWidgetClass import InitWidget
 
 mod         = "mod1"
 terminal    = "kitty"
@@ -90,11 +91,16 @@ color = dict (
 # -------------------------------------------------
 
 # Modifies the bar height
-barHeight = 26
+barHeight  = 26
+barMarTop  = 6
+barMarHor  = 12
+
+pixelScale = 1.0
+
+iconSet = "catppuccin-frappe"
 
 # Pixel Scale is a global multiplier. Useful for high resolution displays
 def scale(initValue):
-	pixelScale = 1.0
 	return round(initValue * pixelScale)
 
 # -------------------------------------------------
@@ -113,16 +119,17 @@ keys = [
     Key([mod], "r",
 		lazy.spawn(
             # Specific settings for DMenu such as colors
-			"dmenu_run -h " + str(barHeight) +
-			" -fn 'FiraCode Nerd Font-12'" +
-			" -nb '" + color["background"][0] + "'" +  # Dmenu bar background color
-			" -nf '" + color["white"][0] + "'" +       # Dmenu bar text color
-			" -shb '" + color["green"][0] + "'" +    # Matched text background color
-			" -shf '" + color["black"][0] + "'" +      # Matched text color
-			" -sb '" + color["foreground"][0] + "'" +  # Selected background color
-			" -sf '" + color["black"][0] + "'" +       # Selected text color
-			" -nhb '" + color["foreground"][0] + "'" + # Partial matched text background color
-			" -nhf '" + color["black"][0] + "'"        # Partial matched text color
+			"dmenu_run -h " + str(barHeight)
+			+ " -fn 'FiraCode Nerd Font-12'"
+			+ " -nb '"  + color["background"][0] + "'"  # Dmenu bar background color
+			+ " -nf '"  + color["white"][0]      + "'"  # Dmenu bar text color
+			+ " -shb '" + color["green"][0]      + "'"  # Matched text background color
+			+ " -shf '" + color["black"][0]      + "'"  # Matched text color
+			+ " -sb '"  + color["foreground"][0] + "'"  # Selected background color
+			+ " -sf '"  + color["black"][0]      + "'"  # Selected text color
+			+ " -nhb '" + color["foreground"][0] + "'"  # Partial matched text background color
+			+ " -nhf '" + color["black"][0]      + "'"  # Partial matched text color
+            + " -Y "    + str(barMarTop)                # Offset from top of screen
 		),
 		desc="Spawn a command using DMenu"
 	),
@@ -214,7 +221,7 @@ keys.extend(
 # Config parameters that most layouts use
 layoutTheme = {
     "border_width":  scale(3),
-    "margin":        scale(12),
+    "margin":        scale(10),
     "border_focus":  color["bdrFocus"],
     "border_normal": color["bdrNormal"]
 }
@@ -252,114 +259,10 @@ widget_defaults = dict(
 	background = color["background"],
 	foreground = color["foreground"],
 )
+
 extension_defaults = widget_defaults.copy()
 
-barMarginX = 10  # Margin on the left and right side of the bar
-sepPadding = 10  # Spacing between each widget
-
-seperator = widget.Sep(
-    linewidth = scale(0),
-    padding = scale(sepPadding),
-)
-
-# Initializes an array of widgets for one screen bar
-# @Input - A screen number for a given screen
-def initWidgets(screenNum):
-	baseWidgets = [
-		widget.Sep(
-			linewidth = scale(0),
-			padding = scale(barMarginX),
-		),
-		widget.GroupBox(
-			visible_groups=[char for char in screenGroups[screenNum]],
-			borderwidth = scale(4),
-			active = color["green"],
-			inactive = color["foreground"],
-			highlight_color = color["background"],
-			highlight_method = "line",
-			this_current_screen_border = color["green"],
-			this_screen_border = color["green"],
-			other_current_screen_border = color["green"],
-			other_screen_border = color["green"],
-			rounded = False,
-			disable_drag = True,
-		),
-		widget.Sep(
-			linewidth = scale(2),
-			padding = scale(sepPadding),
-			size_percent = 70,
-		),
-		widget.CurrentLayout(
-			foreground = color["yellow"],
-		),
-		widget.Sep(
-			linewidth = scale(2),
-			padding = scale(sepPadding),
-			size_percent = 70,
-		),
-		widget.Prompt(),
-		widget.WindowName(
-			foreground = color["blue"],
-		),
-		widget.Chord(
-			chords_colors={
-				"launch": ("#ff0000", "#ffffff"),
-			},
-			name_transform=lambda name: name.upper(),
-		),
-		widget.Systray(
-			icon_size = 20,
-		),
-        seperator,
-		widget.CheckUpdates(
-			display_format = "upd: {updates}",
-			distro = "Arch",
-			no_update_string = "0",
-			update_interval = 300,
-			background = color["green"],
-			colour_have_updates = color["black"],
-			colour_no_updates = color["black"],
-		),
-        seperator,
-		widget.CPU(
-			format = "cpu: {load_percent}%",
-			update_interval = 1.0,
-			background = color["red"],
-			foreground = color["black"],
-		),
-        seperator,
-		widget.Memory(
-			measure_mem = "G",
-			update_interval = 1.0,
-			format = "ram: {MemUsed: .1f} /{MemTotal: .1f}",
-			background = color["yellow"],
-			foreground = color["black"],
-		),
-        seperator,
-		widget.Clock(
-			format = "%m/%d  %I:%M %p",
-			background = color["blue"],
-			foreground = color["black"],
-		),
-        seperator,
-		widget.Volume(
-			limit_max_volume=True,
-			update_interval = 0.1,
-			fmt = "vol: {}",
-			step = 5,
-			background = color["magenta"],
-			foreground = color["black"],
-		),
-		widget.Sep(
-			linewidth = scale(0),
-			padding = scale(barMarginX),
-		),
-	]
-
-	if not screenNum == 0:
-		del baseWidgets[8:9]  # Removes SysTray on secondary monitors
-
-	return baseWidgets
+initWidget = InitWidget(pixelScale, color, screenGroups)
 
 
 # -------------------------------------------------
@@ -369,18 +272,50 @@ def initWidgets(screenNum):
 screens = [
     Screen(
 		top=bar.Bar(
-			widgets = initWidgets(0),
+			widgets = initWidget.coloredImage(
+                0,
+                10,
+                10,
+                "~/.config/qtile/icons/" + iconSet + "/",
+                color["green"],
+                color["foreground"],
+                color["background"],
+                color["yellow"],
+                color["blue"],
+                color["green"],
+                color["red"],
+                color["yellow"],
+                color["blue"],
+                color["magenta"]
+            ),
             size = scale(barHeight),
 			opacity = 1.0,
+            margin = [scale(barMarTop), scale(barMarHor), 0, scale(barMarHor)],
             # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
             # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
         ),
     ),
     Screen(
         top=bar.Bar(
-			widgets = initWidgets(1),
+			widgets = initWidget.coloredImage(
+                1,
+                10,
+                8,
+                "~/.config/qtile/icons/" + iconSet + "/",
+                color["green"],
+                color["foreground"],
+                color["background"],
+                color["yellow"],
+                color["blue"],
+                color["green"],
+                color["red"],
+                color["yellow"],
+                color["blue"],
+                color["magenta"]
+            ),
             size = scale(barHeight),
 			opacity = 1.0,
+            margin = [scale(4), scale(12), 0, scale(12)],
             # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
             # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
         ),
