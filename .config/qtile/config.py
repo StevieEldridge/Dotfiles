@@ -93,7 +93,7 @@ color = dict (
 # Modifies the bar height
 barHeight  = 26
 barMarTop  = 6
-barMarHor  = 12
+barMarHor  = 14
 
 pixelScale = 1.0
 
@@ -221,7 +221,7 @@ keys.extend(
 # Config parameters that most layouts use
 layoutTheme = {
     "border_width":  scale(3),
-    "margin":        scale(10),
+    "margin":        scale(12),
     "border_focus":  color["bdrFocus"],
     "border_normal": color["bdrNormal"]
 }
@@ -315,7 +315,7 @@ screens = [
             ),
             size = scale(barHeight),
 			opacity = 1.0,
-            margin = [scale(4), scale(12), 0, scale(12)],
+            margin = [scale(barMarTop), scale(barMarHor), 0, scale(barMarHor)],
             # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
             # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
         ),
